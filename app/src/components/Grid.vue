@@ -14,7 +14,7 @@
         <!-- Summary -->
         <div id="grid-summary" v-if="display == 'Summary'" :display="display" class="card-body">
             <h4 class="card-title">Details</h4>
-            <h6 class="card-title">January 15, 2018</h6>
+            <h6 class="card-title">March 26, 2018</h6>
             <p class="card-text">
                 <ul class="list-group">
                     <li v-for="(item, index) in items" :key="(item, index)" class="list-group-item" @click="removeItem(index)">

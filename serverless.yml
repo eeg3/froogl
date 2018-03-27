@@ -4,12 +4,11 @@ service: froogl
 frameworkVersion: ">=1.2.0 <2.0.0"
 
 plugins:
-  - sls-spa-plugin
   - serverless-offline
   - serverless-dynamodb-local
 
 custom:
-  s3Bucket: eeg3-froogl
+  s3Bucket: eeg3-froogl-1
   tableName: 'ItemDynamoDBTable-${self:provider.stage}'
   dynamodb:
     start:

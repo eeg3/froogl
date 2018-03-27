@@ -1,6 +1,0 @@
-{
-  "name": "sls-spa-plugin",
-  "version": "1.0.0",
-  "description": "Simplify deploying SPA using S3 and CloudFront.",
-  "author": "Serverless Framework"
-}
