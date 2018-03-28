@@ -1,7 +1,7 @@
 <template>
   <div class="row marketing">
     <h2>Dashboard</h2>
-    <p>Yay you made {{ user.username }} it!</p>
+    <p>Yay you made it, {{ user.username }}!</p>
     <blockquote>{{ token }}</blockquote>
   </div>
 </template>

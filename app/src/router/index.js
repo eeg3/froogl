@@ -1,8 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "../components/Home.vue";
-import Profile from "../components/Profile.vue";
 
+import Profile from "../components/cognito-auth/Profile.vue";
 import Login from "../components/cognito-auth/Login.vue";
 import Signup from "../components/cognito-auth/Signup.vue";
 import Confirm from "../components/cognito-auth/Confirm.vue";
