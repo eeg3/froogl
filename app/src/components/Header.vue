@@ -15,8 +15,12 @@
                         <span class="fa fa-user fa-lg"></span>
                     </a>
                     <div class="dropdown-menu">
-                        <router-link to="/signin" class="dropdown-item">Sign-In</router-link>
-                        <router-link to="/register" class="dropdown-item">Register</router-link>
+                        <router-link to="/" exact class="dropdown-item"><a>Home</a></router-link>
+                        <router-link v-if="loggedIn" to="/profile" class="dropdown-item"><a>Profile</a></router-link>
+                        <router-link v-if="loggedIn" to="/change_password" class="dropdown-item"><a>Change Password</a></router-link>
+                        <router-link v-if="loggedIn" to="/logout" class="dropdown-item"><a>Log out</a></router-link>
+                        <router-link v-if="!loggedIn" to="/login" class="dropdown-item"><a>Log in</a></router-link>
+                        <router-link v-if="!loggedIn" to="/signup" class="dropdown-item"><a>Sign Up</a></router-link>
                     </div>
                 </li>
             </ul>
@@ -26,7 +30,7 @@
 
 <script>
 export default {
-  props: ["site"]
+  props: ["site", "loggedIn"]
 };
 </script>
 
