@@ -1,11 +1,19 @@
 {
   "name": "froogl",
   "version": "1.0.0",
-  "description": "Froogl application",
+  "description": "Froogl app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eeg3/froogl.git"
+  },
   "author": "Earl Gay",
   "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/eeg3/froogl/issues"
+  },
+  "homepage": "https://github.com/eeg3/froogl#readme",
   "devDependencies": {
-    "aws-sdk": "^2.213.1",
+    "aws-sdk": "^2.216.1",
     "serverless-dynamodb-local": "^0.2.28",
     "serverless-offline": "^3.18.0"
   }

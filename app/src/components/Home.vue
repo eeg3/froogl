@@ -6,11 +6,13 @@
     </p>
     <hr>
     <app-grid class="mt-3" :totalAdditions="totalAdditions" @itemAdded="itemAdded"></app-grid>
+    <app-axiostest></app-axiostest>
   </div>
 </template>
 
 <script>
 import Grid from "../components/Grid.vue";
+import AxiosTest from "../components/AxiosTest.vue";
 
 export default {
   data: function() {
@@ -25,7 +27,8 @@ export default {
     }
   },
   components: {
-    "app-grid": Grid
+    "app-grid": Grid,
+    "app-axiostest": AxiosTest
   }
 };
 </script>

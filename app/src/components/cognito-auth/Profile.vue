@@ -1,29 +1,35 @@
 <template>
-  <div class="row marketing">
+  <div>
     <h2>Dashboard</h2>
-    <p>Yay you made it, {{ user.username }}!</p>
+    <p>
+      Welcome, {{ user.username }}!
+    </p>
+    <hr>
     <blockquote>{{ token }}</blockquote>
+    <blockquote>{{ decodedToken }}</blockquote>
   </div>
 </template>
 
 <script>
-import jwtDecode from 'jwt-decode'
+import jwtDecode from "jwt-decode";
 export default {
-  data () {
+  data() {
     return {
-      token: 'Loading token..',
+      decodedToken: "Loading token..",
+      token: "Loading token...",
       user: {}
-    }
+    };
   },
-  created () {
+  created() {
     this.$cognitoAuth.getIdToken((err, jwtToken) => {
       if (err) {
-        console.log("Dashboard: Couldn't get the session:", err, err.stack)
-        return
+        console.log("Dashboard: Couldn't get the session:", err, err.stack);
+        return;
       }
-      this.token = jwtDecode(jwtToken)
-      this.user = this.$cognitoAuth.getCurrentUser()
-    })
+      this.token = jwtToken;
+      this.decodedToken = jwtDecode(jwtToken);
+      this.user = this.$cognitoAuth.getCurrentUser();
+    });
   }
-}
+};
 </script>
