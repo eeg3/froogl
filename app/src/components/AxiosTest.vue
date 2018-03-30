@@ -7,26 +7,14 @@
 
 <script>
 import axios from "axios";
-import jwtDecode from 'jwt-decode'
 
 export default {
+  props: ["token"],
   data: function() {
     return {
       result: "test",
-      token: "Loading token..",
       user: {}
     };
-  },
-  created: function() {
-    this.$cognitoAuth.getIdToken((err, jwtToken) => {
-      if (err) {
-        console.log("Dashboard: Couldn't get the session:", err, err.stack);
-        return;
-      }
-      this.token = jwtToken;
-      this.decodedToken = jwtDecode(jwtToken);
-      this.user = this.$cognitoAuth.getCurrentUser();
-    });
   },
   methods: {
     query: function() {

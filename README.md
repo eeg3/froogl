@@ -10,8 +10,8 @@ sls offline start
 
 ## Test API
 
-curl -X POST "http://localhost:3000/name?name=KT&age=30"
-curl -X GET "http://localhost:3000/name?name=KT"
+curl -X POST "https://kf9dip0u7c.execute-api.us-east-1.amazonaws.com/dev/items?name=orange&price=400"
+curl -X GET "https://kf9dip0u7c.execute-api.us-east-1.amazonaws.com/dev/items"
 
 ## References
 
@@ -20,3 +20,7 @@ https://serverless.com/blog/serverless-express-rest-api/
 https://github.com/serverless/examples/tree/master/aws-node-single-page-app-via-cloudfront
 
 https://github.com/wolfeidau/cognito-vue-bootstrap
+
+https://serverless.com/framework/docs/providers/aws/events/apigateway/#http-endpoints-with-custom-authorizers
+
+https://serverless.com/blog/cors-api-gateway-survival-guide/

@@ -23,6 +23,7 @@ provider:
       Action:
         - dynamodb:GetItem
         - dynamodb:PutItem
+        - dynamodb:Scan
       Resource:
         - { "Fn::GetAtt": ["ItemDynamoDBTable", "Arn" ] }
   environment:
@@ -57,6 +58,20 @@ functions:
           cors: true
           authorizer:
             arn: arn:aws:cognito-idp:us-east-1:682436325976:userpool/us-east-1_tHzVfBjoV
+  getItems:
+    handler: handler.getItems
+    events:
+      - http:
+          path: items
+          method: get
+          cors: true
+  saveItem:
+    handler: handler.saveItem
+    events:
+      - http:
+          path: items
+          method: post
+          cors: true
 
 resources:
   Resources:

@@ -8,6 +8,8 @@ import axios from 'axios'
 Vue.use(VueResource)
 
 axios.defaults.baseURL = "https://kf9dip0u7c.execute-api.us-east-1.amazonaws.com/dev";
+//axios.defaults.baseURL = "http://localhost:3000";
+
 
 /* eslint-disable no-new */
 new Vue({

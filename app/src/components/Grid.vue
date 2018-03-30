@@ -83,33 +83,26 @@
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-  props: ["totalAdditions"],
+  props: ["totalAdditions", "token"],
   data: function() {
     return {
       display: "Summary", // Used to specify visible nav
       entryType: "", // Holds selection of entry type whether manual or scan
       itemName: "", // Input
       itemCost: "", // Input
-      items: [
-        {
-          name: "Item 1",
-          price: "100"
-        },
-        {
-          name: "Item 2",
-          price: "100"
-        }
-      ] // Holds all items.
+      items: []
     };
   },
   created: function() {
     console.log("Initial totalAdditions value: " + this.totalAdditions);
+    this.queryItemList();
   },
   computed: {
     totalCost: function() {
@@ -125,27 +118,62 @@ export default {
       if (this.display == val) return true;
     },
     addItem: function() {
-      this.items.push({
-        name: this.itemName,
-        price: this.itemCost
-      });
-
       // Emit up to parent
       this.$emit("itemAdded", this.itemName);
 
-      // Revert back to Summary and clear entry type
-      this.display = "Summary";
-      this.entryType = "";
+      let vm = this;
+      axios
+        .post("/items?name=" + vm.itemName + "&price=" + vm.itemCost, {
+          headers: {
+            Authorization: vm.token
+          }
+        })
+        .then(function(response) {
+          // If it's successful, modify client-side variable versus making another AJAX call for speed.
+          vm.items.push({
+            name: vm.itemName,
+            price: vm.itemCost
+          });
+          // Revert back to Summary and clear entry type once post is successful; this prevents jitteriness on grid.
+          vm.display = "Summary";
+          vm.entryType = "";
 
-      // Reset inputs
-      this.itemName = "";
-      this.itemCost = "";
+          // Reset inputs
+          vm.itemName = "";
+          vm.itemCost = "";
+
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     },
     removeItem: function(index) {
       this.items.splice(index, 1); // Remove the item by splicing it out of the array
+
+      // TODO: Insert code to remove from DynamoDB.
+    },
+    queryItemList: function() {
+      let vm = this;
+      axios
+        .get("/items", {
+          headers: {
+            Authorization: vm.token
+          }
+        })
+        .then(function(response) {
+          for (var i = 0; i < response.data.length; i++) {
+            console.log(
+              i + ": " + response.data[i].name + ", " + response.data[i].price
+            );
+            vm.items.push(response.data[i]);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     }
-  },
-  components: {}
+  }
 };
 </script>
 
