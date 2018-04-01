@@ -12,6 +12,7 @@ sls offline start
 
 curl -X POST "https://kf9dip0u7c.execute-api.us-east-1.amazonaws.com/dev/items?name=orange&price=400"
 curl -X GET "https://kf9dip0u7c.execute-api.us-east-1.amazonaws.com/dev/items"
+curl -X POST "https://kf9dip0u7c.execute-api.us-east-1.amazonaws.com/dev/delete-item?name=orange"
 
 ## References
 

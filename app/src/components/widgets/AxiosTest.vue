@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <button @click="query()" class="btn btn-primary">Query</button>
-        Result: {{ result }}
-    </div>
+  <div>
+    <button @click="query()" class="btn btn-primary">Query</button>
+    Result: {{ result }}
+  </div>
 </template>
 
 <script>
@@ -20,7 +20,7 @@ export default {
     query: function() {
       let vm = this;
       axios
-        .get("/hello-name?name=Goat", {
+        .get("/test?name=test", {
           headers: {
             Authorization: vm.token
           }

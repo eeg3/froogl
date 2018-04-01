@@ -24,6 +24,7 @@ provider:
         - dynamodb:GetItem
         - dynamodb:PutItem
         - dynamodb:Scan
+        - dynamodb:DeleteItem
       Resource:
         - { "Fn::GetAtt": ["ItemDynamoDBTable", "Arn" ] }
   environment:
@@ -31,33 +32,6 @@ provider:
 
 # The `functions` block defines what code to deploy
 functions:
-  helloName:
-      handler: handler.helloName
-      events:
-        - http:
-            path: hello-name
-            method: get
-            cors: true
-            authorizer:
-              arn: arn:aws:cognito-idp:us-east-1:682436325976:userpool/us-east-1_tHzVfBjoV
-  saveName:
-    handler: handler.saveName
-    events:
-      - http:
-          path: name
-          method: post
-          cors: true
-          authorizer:
-            arn: arn:aws:cognito-idp:us-east-1:682436325976:userpool/us-east-1_tHzVfBjoV
-  getName:
-    handler: handler.getName
-    events:
-      - http:
-          path: name
-          method: get
-          cors: true
-          authorizer:
-            arn: arn:aws:cognito-idp:us-east-1:682436325976:userpool/us-east-1_tHzVfBjoV
   getItems:
     handler: handler.getItems
     events:
@@ -72,6 +46,15 @@ functions:
           path: items
           method: post
           cors: true
+  deleteItem:
+    handler: handler.deleteItem
+    events:
+      - http:
+          path: delete-item
+          method: post
+          cors: true
+          #authorizer:
+          #  arn: arn:aws:cognito-idp:us-east-1:682436325976:userpool/us-east-1_tHzVfBjoV
 
 resources:
   Resources:

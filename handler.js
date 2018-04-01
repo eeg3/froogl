@@ -102,39 +102,7 @@ module.exports.getItems = (event, context, callback) => {
   }
 };
 
-module.exports.saveName = (event, context, callback) => {
-  let response = {
-    statusCode: 200,
-    headers: {
-      "Access-Control-Allow-Origin": "*"
-    }
-  };
-  const name = event.queryStringParameters.name;
-  const age = event.queryStringParameters.age;
-  console.log(`Request to save name ${name} with age ${age}`);
-
-  const params = {
-    TableName: NAMES_TABLE,
-    Item: {
-      name,
-      age
-    }
-  };
-
-  dynamoDb.put(params, error => {
-    if (error) {
-      console.log(error);
-      response.statusCode = 400;
-      response.body = JSON.stringify({ error: "Could not save name" });
-
-      callback(null, response);
-    }
-    response.body = JSON.stringify({ name, age });
-    callback(null, response);
-  });
-};
-
-module.exports.getName = (event, context, callback) => {
+module.exports.deleteItem = (event, context, callback) => {
   let response = {
     statusCode: 200,
     headers: {
@@ -143,62 +111,37 @@ module.exports.getName = (event, context, callback) => {
   };
 
   const name = event.queryStringParameters.name;
-  console.log(`Request to retrieve name ${name}`);
+  const user = "earl";
 
   const params = {
     TableName: NAMES_TABLE,
+    /*
+    ConditionExpression: "itemname = :query",
+    ExpressionAttributeNames: {
+      "#user": "user"
+    },
+    ExpressionAttributeValues: {
+      ":query": "earl"
+    }, */
     Key: {
-      name
+      name: name//,
+      //user: user
     }
   };
 
-  dynamoDb.get(params, (error, result) => {
-    if (error) {
-      console.log(error);
+  console.log("Attempting to delete (" + name + ", " + user + ")...");
+  dynamoDb.delete(params, function(err, data) {
+    if (err) {
+      console.error(
+        "Unable to delete item. Error JSON:",
+        JSON.stringify(err, null, 2)
+      );
       response.statusCode = 400;
-      response.body = JSON.stringify({ error: "Could not retrieve name" });
-
-      callback(null, response);
-    }
-    if (result.Item) {
-      const { name, age } = result.Item;
-      response.body = JSON.stringify({ name, age });
-
-      callback(null, response);
+      response.body = JSON.stringify({ error: "Could not delete" });
     } else {
-      response.statusCode = 400;
-      response.body = JSON.stringify({ error: "Name does not exist" });
-
+      console.log("Delete Item succeeded:", JSON.stringify(data, null, 2));
+      response.body = "Delete Item succeeded.";
       callback(null, response);
     }
   });
-};
-
-module.exports.helloName = (event, context, callback) => {
-  let name = "stranger";
-  let items = [
-    {
-      name: "Item 1",
-      price: "100"
-    },
-    {
-      name: "Item 2",
-      price: "100"
-    }
-  ];
-  if (event.queryStringParameters && event.queryStringParameters.name) {
-    name = event.queryStringParameters.name;
-  }
-  const response = {
-    statusCode: 200,
-    headers: {
-      "Access-Control-Allow-Origin": "*" // Required for CORS support to work
-    },
-    body: JSON.stringify({
-      //message: `Hello, ${name}!`
-      message: JSON.stringify(items)
-    })
-  };
-
-  callback(null, response);
 };

@@ -5,8 +5,9 @@
       Welcome, {{ user.username }}!
     </p>
     <hr>
-    <blockquote>{{ token }}</blockquote>
-    <blockquote>{{ decodedToken }}</blockquote>
+    <h5>Token: </h5><textarea rows="14" cols="100" v-model="token"></textarea>
+    <hr>
+    <h5>Decoded Token: </h5><blockquote>{{ decodedToken }}</blockquote>
   </div>
 </template>
 

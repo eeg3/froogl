@@ -6,13 +6,13 @@
     </p>
     <hr>
     <app-grid class="mt-3" :totalAdditions="totalAdditions" :token="token" @itemAdded="itemAdded"></app-grid>
-    <app-axiostest :token="token"></app-axiostest>
+    <!-- <app-axiostest :token="token"></app-axiostest> --> <!-- Dummy component to test an API -->
   </div>
 </template>
 
 <script>
 import Grid from "../components/Grid.vue";
-import AxiosTest from "../components/AxiosTest.vue";
+import AxiosTest from "../components/widgets/AxiosTest.vue";
 import jwtDecode from 'jwt-decode'
 
 export default {
