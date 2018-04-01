@@ -1,6 +1,6 @@
 <template>
     <div>
-        <center><img v-if="status == false" src="/assets/ajax_loader_gray_32.gif"></center>
+        <center><img v-if="status == false" src="../../assets/ajax_loader_gray_32.gif"></center>
     </div>
 </template>
 
