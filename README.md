@@ -10,7 +10,7 @@ sls offline start
 
 ## Test API
 
-curl -X POST "https://kf9dip0u7c.execute-api.us-east-1.amazonaws.com/dev/items?name=orange&price=400"
+curl -X POST "https://kf9dip0u7c.execute-api.us-east-1.amazonaws.com/dev/items?name=orange&price=400&date=02-01-18"
 curl -X GET "https://kf9dip0u7c.execute-api.us-east-1.amazonaws.com/dev/items"
 curl -X POST "https://kf9dip0u7c.execute-api.us-east-1.amazonaws.com/dev/delete-item?name=orange"
 
@@ -25,3 +25,22 @@ https://github.com/wolfeidau/cognito-vue-bootstrap
 https://serverless.com/framework/docs/providers/aws/events/apigateway/#http-endpoints-with-custom-authorizers
 
 https://serverless.com/blog/cors-api-gateway-survival-guide/
+
+## Object response
+
+{
+    "2018": {
+        "03": {
+            "31": {
+                {item1},
+                {item2}
+            }
+        },
+        "04": {
+            "12": {
+                {item3},
+                {item4}
+            }
+        }
+    }
+}

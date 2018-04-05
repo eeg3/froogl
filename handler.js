@@ -25,6 +25,7 @@ module.exports.saveItem = (event, context, callback) => {
     }
   };
   const user = "earl";
+  const date = event.queryStringParameters.date;
   const name = event.queryStringParameters.name;
   const price = event.queryStringParameters.price;
   console.log(`Request to save item ${name} with price ${price}`);
@@ -33,6 +34,7 @@ module.exports.saveItem = (event, context, callback) => {
     TableName: NAMES_TABLE,
     Item: {
       user,
+      date,
       name,
       price
     }
@@ -46,7 +48,7 @@ module.exports.saveItem = (event, context, callback) => {
 
       callback(null, response);
     }
-    response.body = JSON.stringify({ user, name, price });
+    response.body = JSON.stringify({ user, date, name, price });
     callback(null, response);
   });
 };

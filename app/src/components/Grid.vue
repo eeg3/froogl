@@ -13,22 +13,26 @@
 
     <!-- Summary -->
     <div id="grid-summary" v-if="display == 'Summary'" :display="display" class="card-body">
-      <h4 class="card-title">Details <span @click="queryItemList" class="fa fa-redo fa-sm btn float-right"></span></h4>
+      <h4 class="card-title">Details
+        <span @click="queryItemList" class="fa fa-redo fa-sm btn float-right"></span>
+      </h4>
       <app-loadingstatus :status="loadStatus" class="card-title"></app-loadingstatus>
-      <p class="card-text">
-        <ul class="list-group">
-          <li v-for="(item, index) in items" :key="(item, index)" class="list-group-item" @click="removeItem(index)">
-            <span class="float-left">{{ item.name }}</span>
-            <span class="float-right">{{ item.price }}</span>
-          </li>
+      <div class="card-text" v-if="loadStatus == true">
+
+        <ul class="list-group" v-for="(item, index) in items" :key="(item, index)">
+          <app-list-item :item="item" :index="index" @saveItem="addItem($event.item)" @removeItem="removeItem($event.index, $event.name)"></app-list-item>
         </ul>
-        <ul class="list-group mt-3">
-          <li class="list-group-item">
-            <span class="float-left font-weight-bold">Total Savings</span>
-            <span class="float-right">{{ totalCost }}</span>
-          </li>
-        </ul>
-      </p>
+
+        <div class="summary-details">
+          <ul class="list-group mt-3">
+            <li class="list-group-item">
+              <span class="float-left font-weight-bold">Total Savings</span>
+              <span :class="{ 'text-success': (totalCost > 0) }" class="float-right font-weight-bold">${{ totalCost }}</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
     </div>
 
     <!-- Add New -->
@@ -50,7 +54,6 @@
           </div>
           <button class="btn btn-primary" @click="addItem">Add Item</button>
           <button class="btn btn-primary" @click="entryType = ''">Return</button>
-          <span>{{ itemName }} - {{ itemCost }}</span>
         </div>
       </div>
       <!-- Scan Add -->
@@ -89,6 +92,7 @@
 <script>
 import axios from "axios";
 import LoadingStatus from "../components/widgets/LoadingStatus.vue";
+import ListItem from "../components/ListItem.vue";
 
 export default {
   props: ["totalAdditions", "token"],
@@ -98,7 +102,7 @@ export default {
       entryType: "", // Holds selection of entry type whether manual or scan
       itemName: "", // Input
       itemCost: "", // Input
-      items: [],
+      items: {},
       addStatus: "",
       loadStatus: false
     };
@@ -121,26 +125,83 @@ export default {
     isActive: function(val) {
       if (this.display == val) return true;
     },
-    addItem: function() {
+    convertToMonth: function(month) {
+      if (month == "01") {
+        return "January";
+      } else if (month == "02") {
+        return "February";
+      } else if (month == "03") {
+        return "March";
+      } else if (month == "04") {
+        return "April";
+      } else if (month == "05") {
+        return "May";
+      } else if (month == "06") {
+        return "June";
+      } else if (month == "07") {
+        return "July";
+      } else if (month == "08") {
+        return "August";
+      } else if (month == "09") {
+        return "September";
+      } else if (month == "10") {
+        return "October";
+      } else if (month == "11") {
+        return "November";
+      } else if (month == "12") {
+        return "December";
+      }
+    },
+    addItem: function(item) {
       // Emit up to parent
       this.$emit("itemAdded", this.itemName);
+      if (item.name != undefined) {
+        // item will receive an event regardless, so check if it looks like an item object by seeing if name is defined.
+        console.log("Got here: " + item.name + ", " + item.price);
+        console.log("Item inside: " + item);
+        this.itemName = item.name;
+        this.itemCost = item.price;
+      }
+
+      var today = new Date();
+      this.itemDate =
+        (today.getMonth() + 1).toString().padStart(2, "0") +
+        "-" +
+        today
+          .getDate()
+          .toString()
+          .padStart(2, "0") +
+        "-" +
+        today
+          .getFullYear()
+          .toString()
+          .slice(2); // 04-04-18
 
       let vm = this;
       axios
-        .post("/items?name=" + vm.itemName + "&price=" + vm.itemCost, {
-          headers: {
-            Authorization: vm.token
+        .post(
+          "/items?name=" +
+            vm.itemName +
+            "&price=" +
+            vm.itemCost +
+            "&date=" +
+            vm.itemDate,
+          {
+            headers: {
+              Authorization: vm.token
+            }
           }
-        })
+        )
         .then(function(response) {
           // If it's successful, modify client-side variable versus making another AJAX call for speed.
           if (response.statusCode == "400") {
             console.log("Error adding item.");
             vm.addStatus = "Error adding item. Please try again.";
           } else {
-            vm.items.push({
+            vm.items.unshift({
               name: vm.itemName,
-              price: vm.itemCost
+              price: vm.itemCost,
+              date: vm.itemDate
             });
             // Revert back to Summary and clear entry type once post is successful; this prevents jitteriness on grid.
             vm.display = "Summary";
@@ -156,13 +217,18 @@ export default {
           console.log(error);
         });
     },
-    removeItem: function(index) {
-      console.log("Item to be removed: " + this.items[index].name);
+    removeItem: function(index, itemName) {
+      let nameToDelete = this.items[index].name;
 
-      // TODO: Insert code to remove from DynamoDB.
+      // If we passed a name to delete, we're calling from component and need to delete original name not current name, so index doesn't necessarily match.
+      if (itemName) {
+        nameToDelete = itemName;
+        console.log("got herezz: " + itemName);
+      }
+
       let vm = this;
       axios
-        .post("/delete-item?name=" + vm.items[index].name, {
+        .post("/delete-item?name=" + nameToDelete, {
           headers: {
             Authorization: vm.token
           }
@@ -181,6 +247,7 @@ export default {
     },
     queryItemList: function() {
       let vm = this;
+
       vm.items = [];
       vm.loadStatus = false;
       axios
@@ -191,11 +258,18 @@ export default {
         })
         .then(function(response) {
           for (var i = 0; i < response.data.length; i++) {
-            console.log(
-              i + ": " + response.data[i].name + ", " + response.data[i].price
-            );
             vm.items.push(response.data[i]);
           }
+
+          // Put the items in descending order by date.
+          vm.items.sort(function(a, b) {
+            a = new Date(a.date);
+            b = new Date(b.date);
+            return a > b ? -1 : a < b ? 1 : 0;
+          });
+
+          console.log("Item list: " + JSON.stringify(vm.items));
+
           vm.loadStatus = true;
         })
         .catch(function(error) {
@@ -204,12 +278,22 @@ export default {
     }
   },
   components: {
-    "app-loadingstatus": LoadingStatus
+    "app-loadingstatus": LoadingStatus,
+    "app-list-item": ListItem
   }
 };
 </script>
 
 <style>
+.table-bordered {
+  border: 1.5px solid rgba(0, 0, 0, 0.125);
+}
+
+.date-header,
+.summary-details {
+  margin-top: 22px;
+}
+
 /* Overline Reveal */
 .hvr-overline-reveal {
   display: inline-block;
