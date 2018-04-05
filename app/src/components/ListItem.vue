@@ -15,9 +15,9 @@
         </div>
         <div class="row mt-2" v-if="editMode || infoMode">
             <div class="col-6">
-                <button v-if="editMode" @click="saveItem" class="btn btn-sm btn-success float-left mr-2">Save</button>
-                <button @click="editMode = true" v-if="!editMode" class="btn btn-sm btn-success float-left mr-2">Edit</button>
-                <button @click="removeItem" class="btn btn-sm btn-danger float-left">Delete</button>
+                <button v-if="editMode" @click="saveItem" class="btn btn-sm btn-outline-success float-left mr-2">Save</button>
+                <button @click="editMode = true" v-if="!editMode" class="btn btn-sm btn-outline-success float-left mr-2">Edit</button>
+                <button @click="removeItem" class="btn btn-sm btn-outline-danger float-left">Delete</button>
             </div>
             <div class="col-6">
                 <span class="float-right">Even more test!</span>

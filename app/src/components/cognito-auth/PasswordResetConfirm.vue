@@ -15,7 +15,7 @@
       <div class="form-group">
         <input type="password" class="form-control" placeholder="Enter your password" v-model="pass" required>
       </div>
-      <button class="btn btn-primary">confirm password reset</button>
+      <button class="btn btn-outline-success">Confirm Password Reset</button>
     </form>
     <div class="row marketing">
     </div>

@@ -7,12 +7,12 @@
     </div>
     <form @submit.prevent="passwordChange">
       <div class="form-group">
-        <input type="password" class="form-control" placeholder="Enter your password" v-model="oldpass" required>
+        <input type="password" class="form-control" placeholder="Enter your new password" v-model="oldpass" required>
       </div>
       <div class="form-group">
-        <input type="password" class="form-control" placeholder="Enter your new password" v-model="newpass" required>
+        <input type="password" class="form-control" placeholder="Repeat your new password" v-model="newpass" required>
       </div>
-      <button class="btn btn-primary">change password</button>
+      <button class="btn btn-outline-success">Change Password</button>
     </form>
     <div class="row marketing">
     </div>

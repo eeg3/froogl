@@ -15,10 +15,8 @@
       <div class="form-group">
         <input type="password" class="form-control" placeholder="Enter your password" v-model="pass" required>
       </div>
-      <button class="btn btn-primary">signup</button>
+      <button class="btn btn-outline-success">Signup</button>
     </form>
-    <div class="row marketing">
-    </div>
   </div>
 </template>
 

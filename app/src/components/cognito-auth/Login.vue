@@ -1,7 +1,7 @@
 <template>
   <div class="col-sm-6 col-sm-offset-3">
     <h2>Log In</h2>
-    <p v-if="$route.query.redirect">
+    <p><!-- <p v-if="$route.query.redirect"> -->
       Log in to your account.
     </p>
     <div class="alert alert-danger" v-if="error">
@@ -14,11 +14,11 @@
       <div class="form-group">
         <input id="inputPassword" type="password" class="form-control" placeholder="Enter your password" v-model="pass" required>
       </div>
-      <button class="btn btn-primary">login</button>
+      <button class="btn btn-outline-success">Login</button>
     </form>
-    <div class="row marketing">
+    <div class="row mt-2">
     <p>
-      <router-link to="/signup">Create an account</router-link> or <router-link to="/reset_password">reset password</router-link>.
+      <router-link to="/signup">Create an Account</router-link> or <router-link to="/reset_password">Reset Password</router-link>.
     </p>
     </div>
   </div>

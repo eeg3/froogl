@@ -9,7 +9,7 @@
       <div class="form-group">
         <input type="text" class="form-control" placeholder="Enter your username" v-model="username" required>
       </div>
-      <button class="btn btn-primary">reset password</button>
+      <button class="btn btn-outline-success">Reset Password</button>
     </form>
     <div class="row marketing">
     </div>

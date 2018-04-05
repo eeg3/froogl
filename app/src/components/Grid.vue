@@ -311,7 +311,7 @@ export default {
   left: 0;
   right: 0;
   top: 0;
-  background: #2098d1;
+  background: #28a745;
   height: 4px;
   -webkit-transform: translateY(-4px);
   transform: translateY(-4px);
