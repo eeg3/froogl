@@ -1,13 +1,17 @@
 <template>
-  <div>
-    <h2>Dashboard</h2>
-    <p>
-      Welcome, {{ user.username }}!
-    </p>
-    <hr>
-    <h5>Token: </h5><textarea rows="14" cols="100" v-model="token"></textarea>
-    <hr>
-    <h5>Decoded Token: </h5><blockquote>{{ decodedToken }}</blockquote>
+  <div class="container">
+    <div>
+      <h2>Profile</h2>
+      <p>
+        Welcome, {{ user.username }}!
+      </p>
+      <hr>
+      <h5>Token: </h5>
+      <textarea rows="14" cols="100" v-model="token"></textarea>
+      <hr>
+      <h5>Decoded Token: </h5>
+      <blockquote>{{ decodedToken }}</blockquote>
+    </div>
   </div>
 </template>
 

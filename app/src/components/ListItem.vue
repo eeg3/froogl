@@ -1,15 +1,15 @@
 <template>
     <li @click="infoMode = !infoMode" class="list-group-item list-group-item-action">
         <div class="row">
-            <div class="col-2">
+            <div class="col-5">
                 <span v-if="!editMode" class="float-left">{{ item.name }}</span>
                 <span v-else class="float-left"><input v-model="item.name" class="form-control"></span>
             </div>
-            <div class="col-2">
+            <div class="col-5">
                 <span class="float-left">{{ item.date }}</span>
             </div>
-            <div class="col-8">
-                <span v-if="!editMode" :class="{ 'text-success': (item.price > 0) }" class="float-right font-weight-bold">${{ item.price }}</span>
+            <div class="col-2">
+                <span v-if="!editMode" :class="{ 'text-success': (item.price > 0) }" class="float-right">${{ item.price }}</span>
                 <span v-else class="float-right"><input v-model="item.price" :class="{ 'text-success': (item.price > 0) }" class="form-control float-right font-weight-bold"></span><br>
             </div>
         </div>
@@ -20,7 +20,7 @@
                 <button @click="removeItem" class="btn btn-sm btn-outline-danger float-left">Delete</button>
             </div>
             <div class="col-6">
-                <span class="float-right">Even more test!</span>
+                <span class="float-right">Great job!</span>
             </div>
         </div>
     </li>

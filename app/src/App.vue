@@ -3,11 +3,11 @@
     <div class="container-fluid">
       <app-header :site="site" :loggedIn="loggedIn"></app-header>
     </div>
-    <div class="container">
-      <keep-alive>
-        <!-- Don't kill components on route changes -->
-        <router-view :loggedIn="loggedIn"></router-view>
-      </keep-alive>
+    <div class="container-fluid">
+          <keep-alive>
+            <!-- Don't kill components on route changes -->
+            <router-view :loggedIn="loggedIn" class=""></router-view>
+          </keep-alive>
     </div>
   </div>
 </template>
@@ -45,5 +45,4 @@ export default {
 .container-fluid {
   padding: 0 0;
 }
-
 </style>

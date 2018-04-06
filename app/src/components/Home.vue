@@ -1,19 +1,33 @@
 <template>
   <div>
-    <h3>Welcome</h3>
-    <p>
-      Total Additions: {{totalAdditions}}
-    </p>
-    <hr>
-    <app-grid class="mt-3" :totalAdditions="totalAdditions" :token="token" @itemAdded="itemAdded"></app-grid>
-    <!-- <app-axiostest :token="token"></app-axiostest> --> <!-- Dummy component to test an API -->
+    <div class="row">
+      <div class="col-md-8 col-lg-9">
+        <app-grid id="left-pane" class="mt-3" :totalAdditions="totalAdditions" :token="token" @itemAdded="itemAdded"></app-grid>
+        <!-- <app-axiostest :token="token"></app-axiostest> -->
+        <!-- Dummy component to test an API -->
+      </div>
+      <div class="col-md-4 col-lg-3">
+        <div id="right-pane" class="card mt-3">
+          <div class="card-body">
+            <h4 class="card-title">Export</h4>
+            <p class="card-text">Want to archive your data or simply work with it in Excel?</p>
+            <a href="#" class="btn btn-success btn-block">Export Data</a>
+            <hr>
+            <h4 class="card-title">Reset</h4>
+            <p class="card-text">Want to delete all entries and start anew?</p>
+            <a href="#" class="btn btn-danger btn-block">Reset Data</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </template>
 
 <script>
 import Grid from "../components/Grid.vue";
 import AxiosTest from "../components/widgets/AxiosTest.vue";
-import jwtDecode from 'jwt-decode'
+import jwtDecode from "jwt-decode";
 
 export default {
   data: function() {
@@ -47,3 +61,15 @@ export default {
   }
 };
 </script>
+
+<style>
+@media (min-width: 768px) {
+  #right-pane {
+     margin-right: 40px;
+  }
+
+  #left-pane {
+    margin-left: 40px;
+  }
+}
+</style>

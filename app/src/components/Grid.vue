@@ -38,8 +38,8 @@
     <!-- Add New -->
     <div id="grid-add" v-if="display == 'Add'" :display="display" class="card-body">
       <div class="row">
-        <div class="col">
-          <p>This page will be for adding new savings!</p>
+        <div v-if="entryType == null" class="col">
+          <p>Enter new savings with one of the following options.</p>
         </div>
       </div>
       <!-- Manual Add -->
@@ -53,21 +53,21 @@
             <label for="itemCost" class="font-weight-bold">Item Cost</label><input type="text" id="itemCost" class="form-control" v-model="itemCost">
           </div>
           <button class="btn btn-primary" @click="addItem">Add Item</button>
-          <button class="btn btn-primary" @click="entryType = ''">Return</button>
+          <button class="btn btn-primary" @click="entryType = null">Return</button>
         </div>
       </div>
       <!-- Scan Add -->
       <div id="scanAdd" v-else-if="entryType == 'Scan'" class="row">
         <div class="col">
-          <p>Scan entry code goes here.</p>
-          <button class="btn btn-primary" @click="addItem">Add Item</button>
-          <button class="btn btn-primary" @click="entryType = ''">Return</button>
+          <p>Under construction.</p>
+          <button class="btn btn-primary" @click="addItem" disabled>Add Item</button>
+          <button class="btn btn-primary" @click="entryType = null">Return</button>
         </div>
       </div>
       <!-- Add Option Selection -->
       <div v-else class="row">
         <div class="col-sm-6">
-          <div class="card text-white bg-primary hvr-grow mb-3 ml-3" @click="entryType = 'Manual'">
+          <div class="card text-white bg-primary hvr-grow mb-3" @click="entryType = 'Manual'">
             <div class="card-header">Add</div>
             <div class="card-body">
               <h4 class="card-title">Manual Entry</h4>
@@ -76,7 +76,7 @@
           </div>
         </div>
         <div class="col-sm-6">
-          <div class="card text-white bg-info hvr-grow mb-3 mr-3" @click="entryType = 'Scan'">
+          <div class="card text-white bg-info hvr-grow mb-3" @click="entryType = 'Scan'">
             <div class="card-header">Add</div>
             <div class="card-body">
               <h4 class="card-title">Scan Entry</h4>
@@ -99,7 +99,7 @@ export default {
   data: function() {
     return {
       display: "Summary", // Used to specify visible nav
-      entryType: "", // Holds selection of entry type whether manual or scan
+      entryType: null, // Holds selection of entry type whether manual or scan
       itemName: "", // Input
       itemCost: "", // Input
       items: {},
@@ -205,7 +205,7 @@ export default {
             });
             // Revert back to Summary and clear entry type once post is successful; this prevents jitteriness on grid.
             vm.display = "Summary";
-            vm.entryType = "";
+            vm.entryType = null;
 
             // Reset inputs
             vm.itemName = "";
