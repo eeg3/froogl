@@ -48,8 +48,10 @@
 
             <!-- View when Collapsed -->
             <ul class="navbar-nav ml-auto d-inline d-sm-none">
-
-                <router-link v-if="loggedIn" to="/profile" class="dropdown-item mt-2">
+                <router-link v-if="loggedIn" to="/" class="dropdown-item mt-2">
+                    <a>Home</a>
+                </router-link>
+                <router-link v-if="loggedIn" to="/profile" class="dropdown-item">
                     <a>Profile</a>
                 </router-link>
                 <router-link v-if="loggedIn" to="/change_password" class="dropdown-item">
