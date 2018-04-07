@@ -2,6 +2,10 @@
   "name": "froogl",
   "version": "1.0.0",
   "description": "Froogl app",
+  "scripts": {
+    "build-be": "sls deploy",
+    "build-fe": "cd app && npm run build && aws s3 sync dist/ s3://eeg3-froogl-1/dist/ && aws s3 cp index.html s3://eeg3-froogl-1/index.html && aws s3 sync img/ s3://eeg3-froogl-1/img/"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/eeg3/froogl.git"
