@@ -7,7 +7,7 @@ import axios from 'axios'
 
 Vue.use(VueResource)
 
-axios.defaults.baseURL = "https://sctqd3v2hc.execute-api.us-east-1.amazonaws.com/dev";
+axios.defaults.baseURL = "https://qre89ln1d1.execute-api.us-east-1.amazonaws.com/dev/";
 //axios.defaults.baseURL = "http://localhost:3000";
 
 
